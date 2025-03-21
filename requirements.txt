@@ -1,0 +1,11 @@
+openai
+groq
+duckduckgo-search
+autogen-agentchat
+autogen-ext[openai]
+autogen
+python-dotenv
+ollama
+huggingface_hub
+autogen-ext[ollama]
+
