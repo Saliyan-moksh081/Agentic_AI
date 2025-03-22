@@ -8,4 +8,4 @@ python-dotenv
 ollama
 huggingface_hub
 autogen-ext[ollama]
-
+requests
