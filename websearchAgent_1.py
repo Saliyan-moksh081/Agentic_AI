@@ -7,15 +7,11 @@ import os
 from huggingface_hub import InferenceApi
 from autogen_ext.models.openai import OpenAIChatCompletionClient
 
-
-load_dotenv()
-api_key = os.getenv("GEMINI_KEY")
-
 #define the model to use
 config_list =[
-    {
-        "model": "gemini-1.5-flash-8b",
-        "api_key": os.getenv("GEMINI_KEY")
+       {
+        "model": "gpt-4o",
+        "api_key": ""
     }
 ]
 #define the llm config
@@ -50,8 +46,7 @@ web_agent = autogen.AssistantAgent(
 user = autogen.UserProxyAgent(
     name="User_proxy",
     human_input_mode="TERMINATE", #user decides whether to continue or not 
-    max_consecutive_auto_reply=5,
-    is_termination_msg=lambda x: x.get("content","").rstrip().endswith("TERMINATE"),
+   # max_consecutive_auto_reply=5,
     code_execution_config={
             "use_docker": False
         }
@@ -59,13 +54,13 @@ user = autogen.UserProxyAgent(
 )
 
 #register the function to be called by the agent 
-# websearch_registered = register_function(
-#     web_search,
-#     caller = web_agent,
-#     executor= user,
-#     name="websearch",
-#     description="a web tool that searches the web for information"
-# )
+register_function(
+    web_search,
+    caller = web_agent,
+    executor= user,
+    name="web_search",
+    description="a web tool that searches the web for information"
+)
 
 task="""
 search the web for the name elon musk
