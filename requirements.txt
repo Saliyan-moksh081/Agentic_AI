@@ -9,3 +9,4 @@ ollama
 huggingface_hub
 autogen-ext[ollama]
 requests
+Appium-Python-Client
