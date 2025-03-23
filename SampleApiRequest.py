@@ -1,7 +1,7 @@
 import requests
 #This is an Agent to make an http call to an api \
 
-apiBaseurl = "https://rb-metro-preprod.redbus.in/"
+apiBaseurl = ""
 path1 = "metro/cities"
 path2 = "metro/search"
 #Get request
@@ -27,7 +27,7 @@ payload = {
     "txnId": ""
 }
 headers = {
-"AuthToken":"ee979b4e-7a87-45b9-b111-e01b867f168c,99738581-a99d-4d6a-ad94-c94974ee726f,fa20d173-b471-4557-997d-3284f70064b1,31e5d053-6b12-4b8b-a244-5fa6ab5b6cb",
+"AuthToken":"",
 "Channel_Name":"MOBILE_APP",
 "BusinessUnit":"METRO",
 "Content-Type":"application/json"
