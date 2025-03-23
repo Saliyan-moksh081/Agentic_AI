@@ -8,8 +8,8 @@ from dotenv import load_dotenv
 import os
 from autogen.agentchat import AssistantAgent, UserProxyAgent, register_function
 
-load_dotenv()
-api_key = os.getenv("GEMINI_KEY")
+# load_dotenv()
+# api_key = os.getenv("GEMINI_KEY")
 
 #define the model to use
 config_list =[
