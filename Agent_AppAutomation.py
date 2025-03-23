@@ -4,15 +4,14 @@ click on an element
 
 """
 from appium import webdriver
+import asyncio
 from appium.webdriver.common.appiumby import AppiumBy
 from typing import Any, Dict
 from appium.options.common import AppiumOptions
-import asyncio
+from autogen.agentchat import UserProxyAgent, AssistantAgent,register_function
 
-class Automation:
 
-    @classmethod
-    def DesiredCapabilities(cls):
+def DesiredCapabilities(): 
         #define the desired capabilities
         cap:Dict[str, Any]={
             'platformName': 'Android',
@@ -26,8 +25,9 @@ class Automation:
         return url, cap
 
 
-    def OpenClock(self):
-        url,cap = self.DesiredCapabilities()
+def OpenClock():
+
+        url,cap = DesiredCapabilities()
     # initilize the Appium Driver
         driver = webdriver.Remote(url,options=AppiumOptions().load_capabilities(cap))
 
@@ -53,14 +53,64 @@ class Automation:
         finally:
             #quit the session 
             driver.quit()
+        
     
-    async def main(self) -> None:
-        self.OpenClock() #call the function 
+async def main():
+        
+        #define the model to use
+        config_list =[
+            {
+                "model": "gpt-4o",
+                "api_key": ""
+            }
+        ]
+        #define the llm config
+        llm_config ={
+            "timeout": 10,
+            "seed": 42,
+            "config_list": config_list,
+            "temperature": 0   
+            }
+        
+        #define the autogen agents 
+        assistant = AssistantAgent(
+            name="App_assistant",
+            llm_config=llm_config,
+        )
+
+        #defienthe Userproxy agent 
+        user = UserProxyAgent(
+            name="User",
+            human_input_mode="NEVER",
+            max_consecutive_auto_reply=1,
+            code_execution_config={
+                    "use_docker": False,
+                    "work_dir": "Applogs"
+                                  }
+        )
+         # defining the register functions to make above functions to e detected ny agent 
+        #get request
+        register_function(
+            OpenClock,
+            caller=assistant,
+            executor=user,  
+            name = "open_clock",
+            description="this makes call to openclock function and performs the task"
+        )
+
+        prompt_task = """
+                 Open the Clock app and click the Timer and Alarm buttons, then press the Home button only once.
+               """
+        await user.initiate_chat(
+            assistant,
+            message=prompt_task
+        )
 
 #run 
 if __name__ == '__main__':
-    automation = Automation()
-    asyncio.run(automation.main())
+    asyncio.run(main())
+
+
 
 
         
