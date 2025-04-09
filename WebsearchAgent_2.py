@@ -1,11 +1,9 @@
 import autogen
 import asyncio
 from autogen_agentchat.agents import AssistantAgent
-from duckduckgo_search import DDGS
 from dotenv import load_dotenv
 from autogen.agentchat import register_function
 import os
-from huggingface_hub import InferenceApi
 from autogen_ext.models.openai import OpenAIChatCompletionClient
 
 class webagent:

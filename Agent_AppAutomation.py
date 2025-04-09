@@ -24,7 +24,6 @@ def DesiredCapabilities():
         url = 'http://127.0.0.1:4723'
         return url, cap
 
-
 def OpenClock():
 
         url,cap = DesiredCapabilities()

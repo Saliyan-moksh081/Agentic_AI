@@ -1,11 +1,8 @@
 import autogen
 from autogen_agentchat.agents import AssistantAgent
-from duckduckgo_search import DDGS
 from dotenv import load_dotenv
 from autogen.agentchat import register_function
 import os
-from huggingface_hub import InferenceApi
-from autogen_ext.models.openai import OpenAIChatCompletionClient
 
 #define the model to use
 config_list =[
@@ -45,8 +42,8 @@ web_agent = autogen.AssistantAgent(
 #Define the user proxy agent - this is used to give the users chat 
 user = autogen.UserProxyAgent(
     name="User_proxy",
-    human_input_mode="TERMINATE", #user decides whether to continue or not 
-   # max_consecutive_auto_reply=5,
+    human_input_mode="NEVER", #user decides whether to continue or not 
+    max_consecutive_auto_reply=1,
     code_execution_config={
             "use_docker": False
         }
