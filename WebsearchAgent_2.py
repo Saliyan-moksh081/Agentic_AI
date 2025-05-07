@@ -1,8 +1,6 @@
-import autogen
 import asyncio
 from autogen_agentchat.agents import AssistantAgent
 from dotenv import load_dotenv
-from autogen.agentchat import register_function
 import os
 from autogen_ext.models.openai import OpenAIChatCompletionClient
 

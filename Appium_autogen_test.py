@@ -81,7 +81,7 @@ register_function(
 # Start the test
 user.initiate_chat(
     assistant,
-    message="Click on the close button on the pop up and click on the metro icon in the app header'."
+    message="Click on the close button on the pop up and click on the metro icon in the app header"
 )
 
 driver.quit()
